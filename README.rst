@@ -29,3 +29,13 @@ You must install the components using pip::
     $ source bin/activate
     $ easy_install pip
     $ pip install -r requirements.txt
+    
+Now you can start up Django with::
+
+    $ cd vt
+    $ ./manage.py runserver
+    
+API resources
+=============
+
+Example code: https://github.com/pelme/todos_django_piston/
