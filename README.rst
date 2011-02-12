@@ -24,7 +24,8 @@ Getting started
 You must install the components using pip::
 
     $ git clone https://github.com/natea/valentunes.git
+    $ virtualenv valentunes
     $ cd valentunes
-    $ virtualenv .
+    $ source bin/activate
     $ easy_install pip
     $ pip install -r requirements.txt
