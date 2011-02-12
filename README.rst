@@ -17,3 +17,14 @@ Valentunes components
 4) "The Gift" - present the greeting and song at a unique URL
 5) Bonus: send "valentune" to your sweetheart by phone using Twilio
     - add an optional personal recorded greeting via Twilio
+
+Getting started
+===============
+
+You must install the components using pip::
+
+    $ git clone https://github.com/natea/valentunes.git
+    $ cd valentunes
+    $ virtualenv .
+    $ easy_install pip
+    $ pip install -r requirements.txt
