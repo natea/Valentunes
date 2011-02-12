@@ -1,3 +1,5 @@
 Django
 django-piston
 pyechonest
+# there is a python-musicbrainz3 but it hasn't been released on PyPi yet, so we'll stick with v2
+python-musicbrainz2 
