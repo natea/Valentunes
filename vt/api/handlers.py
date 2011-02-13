@@ -17,11 +17,8 @@ class CardHandler(BaseHandler):
     #         return rc.BAD_REQUEST
 
     def create(self, request):
-           print request
            if request.content_type:
                data = request.data
-               print data
-               import pdb; pdb.set_trace;
                em = self.model(from_name=data['from_name'], to_name=data['to_name'], interests=data['interests'])
                em.save()
     
@@ -34,6 +31,14 @@ class CardHandler(BaseHandler):
            # else:
            #     super(ExpressiveTestModel, self).create(request)
 
+        f = CardModelForm(request.POST)
+        if f.is_valid():
+            new_object = f.save()
+            if new_object.to_name != "":
+                new_object.get_tracks()
+            return new_object
+        return rc.BAD_REQUEST
+        
     def read(self, request, object_id):
         card_object = CardModel.objects.get(id=object_id)
         return card_object
