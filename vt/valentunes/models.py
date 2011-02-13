@@ -7,8 +7,8 @@ class CardModel(models.Model):
     about who the card is from and who it's to, what the recipients
     interests are and a personal note.
     """
-    from_name = models.CharField(max_length=200)
-    from_email = models.EmailField(max_length=75)
+    from_name = models.CharField(max_length=200, blank=True)
+    from_email = models.EmailField(max_length=75, blank=True)
     from_phone = models.CharField(max_length=50, blank=True)
     to_name = models.CharField(max_length=200, blank=True)
     to_email = models.EmailField(max_length=200, blank=True)
@@ -23,6 +23,9 @@ class CardModel(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('CardModel', [self.id])
+        
+    def get_tracks(self):
+        pass
     
 class TrackModel(models.Model):
     """ Track is a song that we've found on MusixMatch based on

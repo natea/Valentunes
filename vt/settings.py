@@ -92,6 +92,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'piston',
     'valentunes',
+    'tastypie',
 #    'todos',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
