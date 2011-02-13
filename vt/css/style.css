@@ -18,7 +18,7 @@ input, textarea {
 	color:Black;
 	#font-weight:bold;
 	font-size:32px;
-	background-color:Beige;
+	background-color:#FC9D9A;
 	border: 0px solid;
 	border-color: Gray;
 }
@@ -78,7 +78,6 @@ display:inline;
 }
 .small {
   text-align: left;
-  font-family:MyUnderwoodRegular, serif;
   #background-color: #ffebdb;
   font-size:20px;
 }
@@ -93,7 +92,6 @@ display:inline;
 
 label {
 	#color: #B4886B;
-	font-family:Impact_Label, serif;
 	font-size:42px;
 	display: block;
     padding-left: 15px;
