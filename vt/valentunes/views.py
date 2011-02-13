@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django import forms
 from models import TrackModel, CardModel
 from django.http import HttpResponseRedirect, HttpResponse
-from vt.valentunes.forms import CardModelForm
+from vt.valentunes.forms import CardModelForm, TrackModelFormSet
 
 def index(request,template_name='index.html'):
     if request.method == 'POST':
@@ -23,8 +23,15 @@ def index(request,template_name='index.html'):
     return render_to_response(template_name, context,context_instance=RequestContext(request))
 
 def choose(request, cardid, template_name='choose.html'):
-    track_list = TrackModel.objects.filter(card=cardid)
-
-    context = {'track_list':track_list}
-    return render_to_response(template_name, context,context_instance=RequestContext(request))
+    if request.method == 'POST':
+        #handle the post
+        form = TrackModelFormset(request.POST)
+        if form.is_valid():
+          #do stuff!
+          return HttpResponseRedirect('/gift/%s/'%cardid)
+    else:
+        form = TrackModelFormSet(queryset=TrackModel.objects.filter(card=cardid))
+        track_list = TrackModel.objects.filter(card=cardid)
+        context = {'track_list':track_list,'form':form}
+        return render_to_response(template_name, context,context_instance=RequestContext(request))
 
