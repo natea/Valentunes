@@ -1,6 +1,9 @@
 from django.db import models
 import urllib
 import json
+import httplib2
+#TODO make this in a better place
+from BeautifulSoup import BeautifulStoneSoup
 
 # Create your models here.
 
@@ -50,9 +53,11 @@ class CardModel(models.Model):
 
     def get_track_urls(self):
         #so now that we've got all these tracks, let's get urls for them.
-        skr_url = "http://skreemr.com/skreemr-web-service/search"
-        
-        #params=urllip.urlencode({'s
+        my_track_bucket=TrackModel.objects.filter(card=self.id)
+        for track in my_track_bucket:
+            track.get_audio_url()
+            
+
 
         return 4
         
@@ -87,4 +92,28 @@ class TrackModel(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('TrackModel', [self.id])
-    
+
+
+    def get_audio_url(self):
+        skr_url = 'http://skreemr.com/skreemr-web-service/search'
+        params=urllib.urlencode({'song':self.track_name,'artist':self.artist_name,})
+        f = urllib.urlopen(skr_url+'?'+params)
+        soup = BeautifulStoneSoup(f.read())
+        urls = soup.findAll('url')
+        for url in urls:
+          url = url.string
+          if self.verify_url(url):
+              self.audio_url = url
+              self.save()
+              return
+        #we can't find audio for this - useless!
+        self.delete()
+        return
+
+
+    def verify_url(self,iffy_url):
+        #I declare all urls to be good.
+        #TODO actually check the urls
+        h = httplib2.Http()
+        resp = h.request(iffy_url, 'HEAD')
+        return resp[0]['status']=='200'
