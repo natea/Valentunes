@@ -27,7 +27,7 @@ class CardModel(models.Model):
 
     def __unicode__(self):
         return u"%s"%("Card"+str(self.id)+" from " + self.from_name + " to " + self.to_name)
-
+        
     @models.permalink
     def get_absolute_url(self):
         return ('CardModel', [self.id])
