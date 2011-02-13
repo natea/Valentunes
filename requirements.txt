@@ -1,5 +1,11 @@
-Django
-django-piston
+Django==1.2.5
+-e git+git://github.com/toastdriven/django-tastypie.git#egg=tastypie
 pyechonest
+
+##################
+# UNUSED PACKAGES
+##################
+#django-piston
+#-e git+git://github.com/mozilla/django-piston.git#egg=django-piston
 # there is a python-musicbrainz3 but it hasn't been released on PyPi yet, so we'll stick with v2
 python-musicbrainz2 
