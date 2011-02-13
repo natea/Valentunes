@@ -36,7 +36,6 @@ class CardModel(models.Model):
         params=urllib.urlencode({'apikey':mkey,'q_lyrics':self.to_name,'format':'json'})
         #make the url call
         f=urllib.urlopen(lyr_url,params)
-
         j=json.load(f)
         #check that j has a 200 and is good
         #iterate over these tracks and add them to an array of tracks we've found, adding in the search term
@@ -47,6 +46,7 @@ class CardModel(models.Model):
             #t.track_name=track['track_name']
             t.save()
 
+        #TODO: repeat this for the notes
 
         
       
