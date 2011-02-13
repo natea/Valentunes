@@ -72,7 +72,7 @@ class TrackModel(models.Model):
         pass
 
     def __unicode__(self):
-        return u"TrackModel"
+        return u"%s"%(self.artist_name+" " + self.track_name)
 
     @models.permalink
     def get_absolute_url(self):
