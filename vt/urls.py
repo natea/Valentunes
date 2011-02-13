@@ -18,4 +18,5 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     (r'^api/$', card_handler),
     (r'^api/(?P<object_id>\d+)/$', card_handler),
+    (r'^v/', include('valentunes.urls')),
 )
