@@ -3,6 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django import forms
 from models import TrackModel, CardModel
+from django.http import HttpResponseRedirect, HttpResponse
 from vt.valentunes.forms import CardModelForm
 
 def index(request,template_name='index.html'):
