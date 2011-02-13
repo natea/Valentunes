@@ -5,6 +5,7 @@ pyechonest
 #-e git+git://github.com/utstikkar/pyMusiXmatch.git
 python-dateutil
 mimeparse
+httplib2
 
 ##################
 # UNUSED PACKAGES
