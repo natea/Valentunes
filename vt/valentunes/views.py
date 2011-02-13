@@ -44,6 +44,9 @@ def choose(request, cardid, template_name='choose.html'):
           args['data'] = jstr;
           args_enc = urllib.urlencode(args)
           res = urllib.urlopen('http://seevl.net/tmp/valentunes/cgi.py/call', args_enc).read()
+          #done!
+
+          return HttpResponseRedirect('/')
 
         else:
           #post to the gifts
