@@ -1,5 +1,6 @@
 Django
-django-piston
+#django-piston
+-e git+git://github.com/mozilla/django-piston.git#egg=piston
 pyechonest
 # there is a python-musicbrainz3 but it hasn't been released on PyPi yet, so we'll stick with v2
 python-musicbrainz2 
