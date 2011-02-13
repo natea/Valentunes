@@ -25,13 +25,26 @@ def index(request,template_name='index.html'):
 def choose(request, cardid, template_name='choose.html'):
     if request.method == 'POST':
         #handle the post
-        form = TrackModelFormset(request.POST)
-        if form.is_valid():
-          #do stuff!
+        objs = request.POST
+        trackids=objs.get('track')
+        for trackid in trackids:
+          TrackModel.objects.filter(card=cardid).filter(id__exact=trackid).delete()
+        if objs.get('phone_call') == 'Phone Call':
+          card = CardModel.objects.get(id__exact=cardid)
+          tracks = TrackModel.objects.filter(card=cardid)
+          songstext = ""
+          for track in tracks:
+            songstext +='{"title":"'+track.track_name+'","url":"'+track.audio_url+'"},'
+          
+          #post to the phone 
+          jstr = 'data={"to":"'+card.to_name+'","from":"'+card.from_name + '","phone":"'+card.to_phone+'","message":"'+card.intro_note+'","songs":['+songstext[:-1]+']}'
+          print jstr
+        else:
+          #post to the gifts
           return HttpResponseRedirect('/gift/%s/'%cardid)
     else:
         form = TrackModelFormSet(queryset=TrackModel.objects.filter(card=cardid))
         track_list = TrackModel.objects.filter(card=cardid)
-        context = {'track_list':track_list,'form':form}
+        context = {'track_list':track_list,'formset':form}
         return render_to_response(template_name, context,context_instance=RequestContext(request))
 
