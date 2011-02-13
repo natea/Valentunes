@@ -43,7 +43,7 @@ class CardModel(models.Model):
             return;
         #make the url call
         j=json.load(f)
-        #check that j has a 200 and is good
+        #TODO check that j has a 200 and is good
         #iterate over these tracks and add them to an array of tracks we've found, adding in the search term
         for track in j['message']['body']['track_list']:
             track = track['track']
@@ -65,16 +65,6 @@ class CardModel(models.Model):
         my_track_bucket=TrackModel.objects.filter(card=self.id)
         for track in my_track_bucket:
             track.get_audio_url()
-            
-
-
-        return 4
-        
-        
-
-        
-      
-
 
     
 class TrackModel(models.Model):
