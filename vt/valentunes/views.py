@@ -5,6 +5,7 @@ from django import forms
 from models import TrackModel, CardModel
 from django.http import HttpResponseRedirect, HttpResponse
 from vt.valentunes.forms import CardModelForm, TrackModelFormSet
+import urllib
 
 def index(request,template_name='index.html'):
     if request.method == 'POST':
@@ -37,8 +38,13 @@ def choose(request, cardid, template_name='choose.html'):
             songstext +='{"title":"'+track.track_name+'","url":"'+track.audio_url+'"},'
           
           #post to the phone 
-          jstr = 'data={"to":"'+card.to_name+'","from":"'+card.from_name + '","phone":"'+card.to_phone+'","message":"'+card.intro_note+'","songs":['+songstext[:-1]+']}'
+          jstr = '{"to":"'+card.to_name+'","from":"'+card.from_name + '","phone":"'+card.to_phone+'","message":"'+card.intro_note+'","songs":['+songstext[:-1]+']}'
           print jstr
+          args = {}
+          args['data'] = jstr;
+          args_enc = urllib.urlencode(args)
+          res = urllib.urlopen('http://seevl.net/tmp/valentunes/cgi.py/call', args_enc).read()
+
         else:
           #post to the gifts
           return HttpResponseRedirect('/gift/%s/'%cardid)
