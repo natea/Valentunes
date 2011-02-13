@@ -23,7 +23,7 @@ class CardModel(models.Model):
         pass
 
     def __unicode__(self):
-        return u"CardModel"
+        return u"%s"%("Card"+str(self.id)+" from " + self.from_name + " to " + self.to_name)
 
     @models.permalink
     def get_absolute_url(self):
@@ -50,6 +50,10 @@ class CardModel(models.Model):
 
     def get_track_urls(self):
         #so now that we've got all these tracks, let's get urls for them.
+        skr_url = "http://skreemr.com/skreemr-web-service/search"
+        
+        #params=urllip.urlencode({'s
+
         return 4
         
         
