@@ -41,12 +41,18 @@ class CardModel(models.Model):
         #iterate over these tracks and add them to an array of tracks we've found, adding in the search term
         for track in j['message']['body']['track_list']:
             track = track['track']
-            t = TrackModel(card=self,track_name=track['track_name'],track_mbid=track['track_mbid'],artist_mbid=track['artist_mbid'],album_coverart_100x100=track['album_coverart_100x100'])
+            t = TrackModel(card=self,track_name=track['track_name'],artist_name=track['artist_name'],track_mbid=track['track_mbid'],artist_mbid=track['artist_mbid'],album_coverart_100x100=track['album_coverart_100x100'])
             #t = TrackModel(card=self)
             #t.track_name=track['track_name']
             t.save()
 
         #TODO: repeat this for the notes
+
+    def get_track_urls(self):
+        #so now that we've got all these tracks, let's get urls for them.
+        return 4
+        
+        
 
         
       
@@ -72,7 +78,7 @@ class TrackModel(models.Model):
         pass
 
     def __unicode__(self):
-        return u"%s"%(self.artist_name+" " + self.track_name)
+        return u"%s"%(self.artist_name+" - " + self.track_name)
 
     @models.permalink
     def get_absolute_url(self):
