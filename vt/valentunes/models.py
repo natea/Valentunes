@@ -1,4 +1,6 @@
 from django.db import models
+import urllib
+import json
 
 # Create your models here.
 
@@ -17,12 +19,37 @@ class CardModel(models.Model):
     interests = models.TextField(max_length=1000, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     
+    class Admin:
+        pass
+
     def __unicode__(self):
         return u"CardModel"
 
     @models.permalink
     def get_absolute_url(self):
         return ('CardModel', [self.id])
+    
+    def get_tracks(self):
+        #get lyrics that mention to_name
+        mkey='b6b0c3fb765dd2368d6f309f23448982'
+        lyr_url = "http://api.musixmatch.com/ws/1.1/track.search"
+        params=urllib.urlencode({'apikey':mkey,'q_lyrics':self.to_name,'format':'json'})
+        #make the url call
+        f=urllib.urlopen(lyr_url,params)
+
+        j=json.load(f)
+        #check that j has a 200 and is good
+        #iterate over these tracks and add them to an array of tracks we've found, adding in the search term
+        for track in j['message']['body']['track_list']:
+            track = track['track']
+            t = TrackModel(card=self,track_mbid=track['track_mbid'],track_name=track['track_name'],artist_mbid=track['artist_mbid'],album_coverart_100x100=track['album_coverart_100x100'])
+            t.save()
+
+
+        
+      
+
+
     
 class TrackModel(models.Model):
     """ Track is a song that we've found on MusixMatch based on
@@ -39,6 +66,11 @@ class TrackModel(models.Model):
     album_coverart_100x100 = models.URLField(max_length=200)
     # example URL of album_coverart: http:\/\/api.musixmatch.com\/albumcover\/741317.jpg",
     artist_mbid = models.CharField(max_length=200)
+    audio_url = models.URLField(max_length=640)
+    reason = models.CharField(max_length=200)
+
+    class Admin:
+        pass
 
     def __unicode__(self):
         return u"TrackModel"

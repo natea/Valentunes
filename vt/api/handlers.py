@@ -10,6 +10,8 @@ class CardHandler(BaseHandler):
         f = CardModelForm(request.POST)
         if f.is_valid():
             new_object = f.save()
+            if new_object.to_name != "":
+                new_object.get_tracks()
             return new_object
         return rc.BAD_REQUEST
         
