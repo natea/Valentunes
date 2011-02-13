@@ -36,6 +36,7 @@ class CardHandler(BaseHandler):
             new_object = f.save()
             if new_object.to_name != "":
                 new_object.get_tracks()
+                new_object.get_track_urls()
             return new_object
         return rc.BAD_REQUEST
         

@@ -1,0 +1,146 @@
+body {
+  text-align: left;
+  font-family:Delicious, serif;
+  #background-image:url('heart_border2.png');
+  #background-repeat:no-repeat;
+  font-size:20px;
+  font-weight:bold;
+  #background-color: #ffebdb;
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+}
+
+input, textarea {
+	font-family: CutiePop, serif;
+	#margin-bottom: 20px;
+	margin-top: 5px;
+	color:Black;
+	#font-weight:bold;
+	font-size:32px;
+	background-color:Beige;
+	border: 0px solid;
+	border-color: Gray;
+}
+
+
+form#song-filter{
+  text-align: left;
+}
+
+input.btn {
+	color:White;
+	font-weight:bold;
+	font-size:40px;
+	background-color:Red;
+	border: 3px solid;
+	border-color: Black;
+}
+.even {
+  
+      -moz-box-shadow: inset 0px 0px 14px #FC9D9A; /* FF3.5+ */
+  -webkit-box-shadow: inset 0px 0px 14px #FC9D9A; /* Saf3.0+, Chrome */
+          box-shadow: inset 0px 0px 14px #FC9D9A; /* Opera 10.5, IE9 */
+     -moz-border-radius: 14px; /* FF1+ */
+  -webkit-border-radius: 14px; /* Saf3-4 */
+          border-radius: 14px; /* Opera 10.5, IE9, Saf5, Chrome */
+  padding:10px;
+
+}
+.even div{
+display:inline;
+}
+.odd div{
+display:inline;
+}
+
+.odd {
+      -moz-box-shadow: inset 0px 0px 14px #FE4365; /* FF3.5+ */
+  -webkit-box-shadow: inset 0px 0px 14px #FE4365; /* Saf3.0+, Chrome */
+          box-shadow: inset 0px 0px 14px #FE4365; /* Opera 10.5, IE9 */
+  
+     -moz-border-radius: 14px; /* FF1+ */
+  -webkit-border-radius: 14px; /* Saf3-4 */
+          border-radius: 14px; /* Opera 10.5, IE9, Saf5, Chrome */
+  padding:10px;
+}
+.player {
+ 
+      -moz-box-shadow: 0px 0px 6px #FFF; /* FF3.5+ */
+  -webkit-box-shadow: 0px 0px 6px #FFF; /* Saf3.0+, Chrome */
+          box-shadow: 0px 0px 6px #fff; /* Opera 10.5, IE9 */
+  
+     -moz-border-radius: 4px; /* FF1+ */
+  -webkit-border-radius: 4px; /* Saf3-4 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome */
+  padding-left: 35px;
+
+}
+.small {
+  text-align: left;
+  font-family:MyUnderwoodRegular, serif;
+  #background-color: #ffebdb;
+  font-size:20px;
+}
+
+#message {
+	font-family: CutiePop;
+	font-size: 30px;
+	text-indent:10px;
+	margin-top:10px;
+}
+
+
+label {
+	#color: #B4886B;
+	font-family:Impact_Label, serif;
+	font-size:42px;
+	display: block;
+    padding-left: 15px;
+    text-indent: -15px;
+}
+
+label:after { content: ":" }
+
+  #content{
+	width: 800px;
+	background: white;
+	#padding: 10px;
+	font-family:MyUnderwoodRegular, serif;
+	font-size:16px;
+	text-indent:10px;
+	#margin-top:60px;
+  }
+  #content ul li { list-style-type:none; }
+
+  #header{
+	width: 800px;
+	font-family:MyUnderwoodRegular, serif;
+	font-size:26px;
+	text-indent:10px;
+  }
+
+  
+  img { border-style: none; }
+    
+  @font-face {
+	font-family: 'MyUnderwoodRegular';
+	src: url('../fonts/MyUnderwood-webfont.eot');
+	src: local('☺'), url('../fonts/MyUnderwood-webfont.woff') format('woff'), url('../fonts/MyUnderwood-webfont.ttf') format('truetype'), url('../fonts/MyUnderwood-webfont.svg#webfontnx6xGMOt') format('svg');
+	font-weight: normal;
+	font-style: normal;
+  }
+  
+  @font-face {
+	font-family: 'CutiePop';
+	src: local('☺'), url('../fonts/CutiePop.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+  }
+  
+  @font-face {
+	font-family: 'Impact_Label';
+	src: local('☺'), url('../fonts/Impact_Label.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+  }

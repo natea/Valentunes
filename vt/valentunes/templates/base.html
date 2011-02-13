@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>{% block title %}ValenTUNES | Send Love With Music {% endblock %}</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script src="http://cachedcommons.org/cache/jquery/1.4.2/javascripts/jquery-min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  {%block head %}{% endblock %}
+</head>
+
+<body>
+    <div id="header">
+      <img src="/imgs/logo.png" alt="logo" />
+      {% block header %}
+      <p>Create a customized playlist of music your Valentine will love...</p>
+      {% endblock %}
+    </div>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+    <div id="footer">{% block footer %}made with twilio, musixmatch and skreemr {% endblock %}
+</body>
+</html>
+

@@ -3,6 +3,9 @@ Django==1.2.5
 pyechonest
 # pyMusiXmatch is not an egg so we can't install it with pip
 #-e git+git://github.com/utstikkar/pyMusiXmatch.git
+python-dateutil
+mimeparse
+httplib2
 
 ##################
 # UNUSED PACKAGES

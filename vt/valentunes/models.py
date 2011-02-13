@@ -1,6 +1,9 @@
 from django.db import models
 import urllib
 import json
+import httplib2
+#TODO make this in a better place
+from BeautifulSoup import BeautifulStoneSoup
 
 # Create your models here.
 
@@ -28,39 +31,41 @@ class CardModel(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('CardModel', [self.id])
-        
-    def get_tracks(self):
+      
+    def get_topic_tracks(self,topic):
         #get lyrics that mention to_name
         mkey='b6b0c3fb765dd2368d6f309f23448982'
         lyr_url = "http://api.musixmatch.com/ws/1.1/track.search"
-        params=urllib.urlencode({'apikey':mkey,'q_lyrics':self.to_name,'format':'json'})
+        try:
+            params=urllib.urlencode({'apikey':mkey,'q_lyrics':topic,'format':'json'})
+            f=urllib.urlopen(lyr_url,params)
+        except: 
+            #if we can't get this, there is no point
+            return;
         #make the url call
-        f=urllib.urlopen(lyr_url,params)
         j=json.load(f)
-        #check that j has a 200 and is good
+        #TODO check that j has a 200 and is good
         #iterate over these tracks and add them to an array of tracks we've found, adding in the search term
         for track in j['message']['body']['track_list']:
             track = track['track']
-            t = TrackModel(card=self,track_name=track['track_name'],artist_name=track['artist_name'],track_mbid=track['track_mbid'],artist_mbid=track['artist_mbid'],album_coverart_100x100=track['album_coverart_100x100'])
-            #t = TrackModel(card=self)
-            #t.track_name=track['track_name']
+            t = TrackModel(card=self,track_name=track['track_name'],artist_name=track['artist_name'],track_mbid=track['track_mbid'],artist_mbid=track['artist_mbid'],reason=topic,album_coverart_100x100=track['album_coverart_100x100'])
             t.save()
+        
+    def get_tracks(self):
+        #get lyrics that mention to_name
+        self.get_topic_tracks(self.to_name)
 
         #TODO: repeat this for the notes
+        interests_list = self.interests.split(',')
+        for topic in interests_list:
+          self.get_topic_tracks(topic)
+
 
     def get_track_urls(self):
         #so now that we've got all these tracks, let's get urls for them.
-        skr_url = "http://skreemr.com/skreemr-web-service/search"
-        
-        #params=urllip.urlencode({'s
-
-        return 4
-        
-        
-
-        
-      
-
+        my_track_bucket=TrackModel.objects.filter(card=self.id)
+        for track in my_track_bucket:
+            track.get_audio_url()
 
     
 class TrackModel(models.Model):
@@ -87,4 +92,34 @@ class TrackModel(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('TrackModel', [self.id])
-    
+
+
+    def get_audio_url(self):
+        skr_url = 'http://skreemr.com/skreemr-web-service/search'
+        try:
+          params=urllib.urlencode({'song':self.track_name,'artist':self.artist_name,})
+          f = urllib.urlopen(skr_url+'?'+params)
+        except:
+          #what can we do with this?  get rid of it
+          self.delete()
+          return
+
+        soup = BeautifulStoneSoup(f.read())
+        urls = soup.findAll('url')
+        for url in urls:
+          url = url.string
+          if self.verify_url(url):
+              self.audio_url = url
+              self.save()
+              return
+        #we can't find audio for this - useless!
+        self.delete()
+        return
+
+
+    def verify_url(self,iffy_url):
+        #I declare all urls to be good.
+        #TODO actually check the urls
+        h = httplib2.Http()
+        resp = h.request(iffy_url, 'HEAD')
+        return resp[0]['status']=='200'
