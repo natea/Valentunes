@@ -1,6 +1,9 @@
 Django==1.2.5
 -e git+git://github.com/toastdriven/django-tastypie.git#egg=tastypie
 pyechonest
+# pyMusiXmatch is not an egg so we can't install it with pip
+#-e git+git://github.com/utstikkar/pyMusiXmatch.git
+-r src/tastypie/requirements.txt
 
 ##################
 # UNUSED PACKAGES
