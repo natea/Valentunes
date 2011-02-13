@@ -41,12 +41,36 @@ Now you can start up Django with::
     $ cd vt
     $ ./manage.py runserver
     
-Testing with curl
+Testing with Poster
+-------------------
+
+Download 
+`Poster <https://addons.mozilla.org/en-US/firefox/addon/poster/>`_ this Firefox plugin.
+
+And then pass a POST using the following as the content::
+
+    {
+        "interests": "Hello", 
+        "to_email": "", 
+        "from_name": "Anna", 
+        "intro_note": "", 
+        "to_phone": "", 
+        "from_email": "", 
+        "to_name": "Nate", 
+        "from_phone": ""
+    }
+    
+Make sure that you set the Content-type to ``application/json``
+The response should return the URL to the new object that was just created. i.e.::
+
+     http://localhost:8000/api/card/10/
+     
+Testing with curl (don't use - this is deprecated)
 -----------------
 
 To add a new card via the API, type this command in the terminal::
 
-    $ curl localhost:8000/api/ -F "from_name=Nate" -F "from_email=nate@valentun.es"
+    $ curl localhost:8000/api/card/ -F "from_name=Nate" -F "from_email=nate@valentun.es"
     {
         "interests": "", 
         "to_email": "", 
@@ -87,3 +111,4 @@ API resources
     * `Example of django-piston <https://github.com/pelme/todos_django_piston/>`_
     * `Example with OAuth <https://github.com/clemesha/django-piston-oauth-example/>`_
     * `Presentation of django-piston <https://bitbucket.org/Josh/django-piston-presentation/>`_
+    * `Django-Piston and JSON <http://pydanny.blogspot.com/2010/07/getting-piston-forms-to-play-nicely.html>`_

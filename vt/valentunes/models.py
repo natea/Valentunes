@@ -12,8 +12,8 @@ class CardModel(models.Model):
     about who the card is from and who it's to, what the recipients
     interests are and a personal note.
     """
-    from_name = models.CharField(max_length=200)
-    from_email = models.EmailField(max_length=75)
+    from_name = models.CharField(max_length=200, blank=True)
+    from_email = models.EmailField(max_length=75, blank=True)
     from_phone = models.CharField(max_length=50, blank=True)
     to_name = models.CharField(max_length=200, blank=True)
     to_email = models.EmailField(max_length=200, blank=True)
@@ -33,6 +33,7 @@ class CardModel(models.Model):
         return ('CardModel', [self.id])
       
     def get_topic_tracks(self,topic):
+        #get lyrics that mention to_name
         mkey='b6b0c3fb765dd2368d6f309f23448982'
         lyr_url = "http://api.musixmatch.com/ws/1.1/track.search"
         try:
