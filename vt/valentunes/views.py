@@ -7,8 +7,8 @@ def index(request,template_name='index.html'):
     context = {}
     return render_to_response(template_name, context,context_instance=RequestContext(request))
 
-def choose(request, template_name='choose.html'):
-    track_list = TrackModel.objects.filter(card='18')
+def choose(request, cardid, template_name='choose.html'):
+    track_list = TrackModel.objects.filter(card=cardid)
 
     context = {'track_list':track_list}
     return render_to_response(template_name, context,context_instance=RequestContext(request))
