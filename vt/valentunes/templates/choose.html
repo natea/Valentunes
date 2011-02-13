@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block head %}
-<script src="js/polling.js"></script>
-<script src="js/processing.js"></script>
+<script src="/static/js/polling.js"></script>
+<script src="/static/js/processing.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -13,9 +13,9 @@
     <input type="checkbox" name="track" value="{{ track.id }}"/>
     <span>{{ track.artist_name }} - {{ track.track_name }}</span>
     <div class="player">
-          <object type="application/x-shockwave-flash" data="/button/musicplayer.swf?&song_url={{ track.audio_url }}" width="17" height="17">
-          <param name="movie" value="/button/musicplayer.swf?&song_url={{ track.audio_url }}" />
-          <img src="noflash.gif" width="17" height="17" alt="" />
+          <object type="application/x-shockwave-flash" data="/static/button/musicplayer.swf?&song_url={{ track.audio_url }}" width="17" height="17">
+          <param name="movie" value="/static/button/musicplayer.swf?&song_url={{ track.audio_url }}" />
+          <img src="/static/imgs/noflash.gif" width="17" height="17" alt="" />
           </object>
     </div>
     <div class="reason">'cause of {{ track.reason }}</div>
