@@ -121,5 +121,8 @@ class TrackModel(models.Model):
         #I declare all urls to be good.
         #TODO actually check the urls
         h = httplib2.Http()
-        resp = h.request(iffy_url, 'HEAD')
+        try:
+            resp = h.request(iffy_url, 'HEAD')
+        except:
+            return False
         return resp[0]['status']=='200'
