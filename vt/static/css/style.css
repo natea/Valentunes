@@ -118,7 +118,13 @@ label:after { content: ":" }
 	text-indent:10px;
   }
 
-  
+  #footer{
+	width: 800px;
+	font-family:MyUnderwoodRegular, serif;
+	font-size:16px;
+	text-indent:10px;
+  }
+    
   img { border-style: none; }
     
   @font-face {
