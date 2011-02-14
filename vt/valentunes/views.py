@@ -46,7 +46,11 @@ def choose(request, cardid, template_name='choose.html'):
           res = urllib.urlopen('http://seevl.net/tmp/valentunes/cgi.py/call', args_enc).read()
           #done!
 
-          return HttpResponseRedirect('/')
+          return render_to_response("sent.html", { 
+                  "to_name": card.to_name,
+                  "to_phone": card.to_phone,
+                  },
+                                    RequestContext(request))
 
         else:
           #post to the gifts

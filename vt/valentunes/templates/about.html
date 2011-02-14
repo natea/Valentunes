@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>What is Valentun.es?</h1>
+<p>It starts with a missed Valentine card and ends with a not-so-lovely apology. We wanted to make it insanely easy to craft a playlist that will make your Valentine swoon.</p>
+<p>Valentun.es lets you enter your Valentine's name, his or her specific interests, and unique phrases and descriptions. </p>
+    <p>It then searches lyrics to discover music that uses those words, filters those songs by danceability and other taste factors, and then serves them up so you can listen and hand-pick the final playlist. </p>
+    <p>You can select to get a unique URL that includes your message and the streaming playlist. Or Valentun.es can deliver the playlist to their cellphone.</p> 
+    <p>What better way to say "Be my Valentine!" than through a tinny cellphone speaker via AT&T. If your special someone can listen all the way through 5 songs without dropping, you know s/he's a keeper!</p>
+<p>The <a href="http://wiki.musichackday.org/index.php?title=ValenTun.es#Media">iPhone app</a> lets you be even more forgetful, so you can quickly create a Valentune on-the-go (presumably while shopping for flowers 5 minutes before making dinner reservations). Just like the web front end, the app lets you enter your Valentine's info, view and listen to possible tracks, and select the ones you want to package as a playlist.</p>
+<h2>How was Valentun.es built?</h2>
+Valentun.es was built in 24 hrs by a team of music hackers as part of <a href="http://nyc.musichackday.org">Music Hack Day NYC</a>. 
+
+Here are some of the APIs, SDKs and tools that we used:
+<ul>
+<li><a href="http://musixmatch.com">MusixMatch</a> - for the lyrics search
+<li><a href="http://echonest.com">EchoNest</a> - to select best songs from the initial bucket
+<li><a href="http://skreemr.com">Skreemr</a> - to find available MP3s
+<li><a href="http://twilio.com">Twilio</a> - for phone delivery (duh)</li>
+<li><a href="http://djangoproject.com">Django</a>, <a href="http://python.org">Python</a>, <a href="https://github.com/toastdriven/django-tastypie/">tastypie</a> for the API
+<li><a href="http://djangozoom.com">DjangoZoom</a> for easy hosting and deployment</li>
+<li>iPhone SDK (incl. ASIHTTPRequest, SBJSON)</li>
+<li>Redbull (lots of it ;)</li>
+</ul>
+<p>If you want to help out with the development, or just curious to look at the code that was written to power the site, checkout the links to the code repos on our <a href="http://wiki.musichackday.org/index.php?title=ValenTun.es">Music Hack Day wiki page</a>.</p>
+
+<h2>Who's behind Valentun.es?</h2>
+We all met at Music Hack Day and worked virtually non-stop for 24 hrs to build the site. Here are the folks who made it happen!
+<ul>
+    <li>Amélie Anglade // @utstikkar // amelie.anglade@gmail.com // Echonest API // Musixmatch API</li>
+    <li>Alexandre Passant // @terraces // alex@passant.org // Twilio API</li>
+    <li><a href="http://annacallahan.com">Anna Callahan</a> // @jazztpt // annacallahan@gmail.com // iPhone Wizard</li>
+    <li><a href="http://MoreLightMoreLight.com">Matt Katz</a> // @mattkatz // valentunes@MoreLightMoreLight.com // Django/Python master</li>
+    <li>Jeff Novich // @jeffnovich // jeffnovich@gmail.com // Skreemr and (gulp) design</li>
+    <li>Twom Deryckere // @twom // twom.deryckere@gmail.com // PHP/Backend</li>
+    <li><a href="http://linkedin.com/in/natea">Nate Aune</a> // @natea // nate (at) djangozoom (dot) com // Django/Python developer</li>
+</ul>
+<h2>Like Valentun.es?</h2>
+<a href="http://twitter.com/myvalentunes">Follow us on Twitter</a> 
+{% endblock %}

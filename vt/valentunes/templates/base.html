@@ -21,7 +21,10 @@
     <div id="content">
         {% block content %}{% endblock %}
     </div>
-    <div id="footer">{% block footer %}made with twilio, musixmatch and skreemr {% endblock %}
+    <div id="footer">
+        {% block footer %}
+        {% include '_footer.html' %}
+        {% endblock %}
 </body>
 </html>
 
