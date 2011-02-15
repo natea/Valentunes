@@ -5,6 +5,9 @@ import httplib2
 #TODO make this in a better place
 from BeautifulSoup import BeautifulStoneSoup
 
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
+
 # Create your models here.
 
 class CardModel(models.Model):
@@ -119,10 +122,14 @@ class TrackModel(models.Model):
 
     def verify_url(self,iffy_url):
         #I declare all urls to be good.
-        #TODO actually check the urls
-        h = httplib2.Http()
+        #TODO: check that the mime type is an MP3 file
+
+        validate = URLValidator(verify_exists=True)
         try:
-            resp = h.request(iffy_url, 'HEAD')
-        except:
+            result = validate(iffy_url)
+            if result is None:
+                return True
+            # return resp[0]['status']=='200'
+        except ValidationError, e:
+            print e
             return False
-        return resp[0]['status']=='200'
