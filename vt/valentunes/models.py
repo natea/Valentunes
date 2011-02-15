@@ -129,7 +129,6 @@ class TrackModel(models.Model):
             result = validate(iffy_url)
             if result is None:
                 return True
-            # return resp[0]['status']=='200'
         except ValidationError, e:
             print e
             return False

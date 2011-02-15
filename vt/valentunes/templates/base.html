@@ -3,11 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <title>{% block title %}ValenTUNES | Send Love With Music {% endblock %}</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-  <script src="http://cachedcommons.org/cache/jquery/1.4.2/javascripts/jquery-min.js"></script>
-  <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
-  {%block head %}{% endblock %}
-  {% include '_googleanalytics.html' %}
+    <link rel="SHORTCUT ICON" href="/static/imgs/favicon.ico"/>
+    <!-- Not using jQuery, so why slow down the page load time with these?
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script src="http://cachedcommons.org/cache/jquery/1.4.2/javascripts/jquery-min.js"></script> 
+    -->
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    {%block head %}{% endblock %}
+    {% include '_googleanalytics.html' %}
 </head>
 
 <body>
