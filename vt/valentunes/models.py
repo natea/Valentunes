@@ -85,6 +85,8 @@ class TrackModel(models.Model):
     artist_mbid = models.CharField(max_length=200)
     audio_url = models.URLField(max_length=640)
     reason = models.CharField(max_length=200)
+    #should we remove this track from the card?
+    remove = models.BooleanField(default=True)
 
     class Admin:
         pass

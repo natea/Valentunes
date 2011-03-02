@@ -28,13 +28,16 @@ def choose(request, cardid, template_name='choose.html'):
         #handle the post
         objs = request.POST
         print objs
-        trackids=objs.getlist('track')
-        print trackids
-        for trackid in trackids:
-          print trackid
-          track = TrackModel.objects.filter(card=cardid).get(id__exact=trackid)
-          print track.track_name
-          track.delete()
+        if objs.get('phone_call') == 'Phone Call':
+          trackids=objs.getlist('track')
+          print trackids
+          songstext = ""
+          for trackid in trackids:
+            print trackid
+            track = TrackModel.objects.filter(card=cardid).get(id__exact=trackid)
+            songstext +='{"title":"'+track.track_name+'","url":"'+track.audio_url+'"},'
+            print track.track_name
+            track.delete()
 
         if objs.get('phone_call') == 'Phone Call':
           card = CardModel.objects.get(id__exact=cardid)
@@ -42,14 +45,16 @@ def choose(request, cardid, template_name='choose.html'):
           songstext = ""
           for track in tracks:
             songstext +='{"title":"'+track.track_name+'","url":"'+track.audio_url+'"},'
+            track.remove =False
           
+          tracks.filter(remove=True).delete()
           #post to the phone 
           jstr = '{"to":"'+card.to_name+'","from":"'+card.from_name + '","phone":"'+card.to_phone+'","message":"'+card.intro_note+'","songs":['+songstext[:-1]+']}'
           print jstr
           args = {}
           args['data'] = jstr;
           args_enc = urllib.urlencode(args)
-          res = urllib.urlopen('http://seevl.net/tmp/valentunes/cgi.py/call', args_enc).read()
+          #res = urllib.urlopen('http://seevl.net/tmp/valentunes/cgi.py/call', args_enc).read()
           #done!
 
           return render_to_response("sent.html", { 
