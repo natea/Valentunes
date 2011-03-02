@@ -28,10 +28,14 @@ def choose(request, cardid, template_name='choose.html'):
         #handle the post
         objs = request.POST
         print objs
-        trackids=objs.get('track')
+        trackids=objs.getlist('track')
         print trackids
         for trackid in trackids:
-          TrackModel.objects.filter(card=cardid).filter(id__exact=trackid).delete()
+          print trackid
+          track = TrackModel.objects.filter(card=cardid).get(id__exact=trackid)
+          print track.track_name
+          track.delete()
+
         if objs.get('phone_call') == 'Phone Call':
           card = CardModel.objects.get(id__exact=cardid)
           tracks = TrackModel.objects.filter(card=cardid)
