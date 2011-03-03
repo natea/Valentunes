@@ -32,22 +32,18 @@ def choose(request, cardid, template_name='choose.html'):
           trackids=objs.getlist('track')
           print trackids
           songstext = ""
+          tracks = TrackModel.objects.filter(card=cardid)
           for trackid in trackids:
             print trackid
-            track = TrackModel.objects.filter(card=cardid).get(id__exact=trackid)
+            track = tracks.get(id__exact=trackid)
             songstext +='{"title":"'+track.track_name+'","url":"'+track.audio_url+'"},'
             print track.track_name
-            track.delete()
-
-        if objs.get('phone_call') == 'Phone Call':
-          card = CardModel.objects.get(id__exact=cardid)
-          tracks = TrackModel.objects.filter(card=cardid)
-          songstext = ""
-          for track in tracks:
-            songstext +='{"title":"'+track.track_name+'","url":"'+track.audio_url+'"},'
             track.remove =False
-          
+            
+
           tracks.filter(remove=True).delete()
+          card = CardModel.objects.get(id__exact=cardid)
+          
           #post to the phone 
           jstr = '{"to":"'+card.to_name+'","from":"'+card.from_name + '","phone":"'+card.to_phone+'","message":"'+card.intro_note+'","songs":['+songstext[:-1]+']}'
           print jstr
