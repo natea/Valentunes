@@ -6,6 +6,7 @@ urlpatterns = patterns('django.views.generic.simple',
     
 urlpatterns += patterns('valentunes.views',
     url('choose/(?P<cardid>[\d\w]+)/$', 'choose', name='choose'),
+    url('gift/(?P<cardid>[\d\w]+)/$', 'gift', name='gift'),
     url('$', 'index', name='main_index'),
     )
 
