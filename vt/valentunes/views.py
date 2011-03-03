@@ -23,9 +23,12 @@ def index(request,template_name='index.html'):
     context = {'form':form}
     return render_to_response(template_name, context,context_instance=RequestContext(request))
 def gift(request, cardid, template_name='gift.html'):
+    card = CardModel.objects.get(id__exact=cardid)
+    track_list = TrackModel.objects.filter(card=cardid)
+    context = {'track_list':track_list,'card':card,'cardnumber':cardid}
     return  render_to_response(template_name, context,context_instance=RequestContext(request))
 def playlist(request,cardid,template_name='playlist.xml'):
-    card = CardModel.objects.filter(card=cardid)
+    card = CardModel.objects.filter(id=cardid)
     track_list = TrackModel.objects.filter(card=cardid)
     context = {'track_list':track_list,'card':card}
     return  render_to_response(template_name, context,context_instance=RequestContext(request))
@@ -34,23 +37,24 @@ def choose(request, cardid, template_name='choose.html'):
         #handle the post
         objs = request.POST
         print objs
-        if objs.get('phone_call') == 'Phone Call':
-          trackids=objs.getlist('track')
-          print trackids
-          songstext = ""
-          tracks = TrackModel.objects.filter(card=cardid)
-          for trackid in trackids:
-            print trackid
-            track = tracks.get(id__exact=trackid)
-            songstext +='{"title":"'+track.track_name+'","url":"'+track.audio_url+'"},'
-            print track.track_name
-            track.remove =False
-            
-
-          tracks.filter(remove=True).delete()
-          card = CardModel.objects.get(id__exact=cardid)
+        trackids=objs.getlist('track')
+        print trackids
+        songstext = ""
+        tracks = TrackModel.objects.filter(card=cardid)
+        for trackid in trackids:
+          print trackid
+          track = tracks.get(id__exact=trackid)
+          songstext +='{"title":"'+track.track_name+'","url":"'+track.audio_url+'"},'
+          print track.track_name
+          track.remove =False
+          track.save()
           
+
+        tracks.filter(remove=True).delete()
+          
+        if objs.get('phone_call') == 'Phone Call':
           #post to the phone 
+          card = CardModel.objects.get(id__exact=cardid)
           jstr = '{"to":"'+card.to_name+'","from":"'+card.from_name + '","phone":"'+card.to_phone+'","message":"'+card.intro_note+'","songs":['+songstext[:-1]+']}'
           print jstr
           args = {}
