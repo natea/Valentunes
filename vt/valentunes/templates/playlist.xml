@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<playlist version="0" xmlns="http://xspf.org/ns/0/">
+	<trackList>
+    {% for track in track_list %}
+		<track>
+			<location>{{ track.audio_url }</location>
+      <image>{{ track.album_coverart_100x100 }}</image>
+      <annotation>{{ track.artist_name }} - {{ track.track_name }}</annotation>
+		</track>
+    {% endfor %}
+	</trackList>
+</playlist>

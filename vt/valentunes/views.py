@@ -22,7 +22,13 @@ def index(request,template_name='index.html'):
         form = CardModelForm()
     context = {'form':form}
     return render_to_response(template_name, context,context_instance=RequestContext(request))
-
+def gift(request, cardid, template_name='gift.html'):
+    return  render_to_response(template_name, context,context_instance=RequestContext(request))
+def playlist(request,cardid,template_name='playlist.xml'):
+    card = CardModel.objects.filter(card=cardid)
+    track_list = TrackModel.objects.filter(card=cardid)
+    context = {'track_list':track_list,'card':card}
+    return  render_to_response(template_name, context,context_instance=RequestContext(request))
 def choose(request, cardid, template_name='choose.html'):
     if request.method == 'POST':
         #handle the post
