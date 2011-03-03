@@ -25,7 +25,7 @@ def index(request,template_name='index.html'):
 def gift(request, cardid, template_name='gift.html'):
     card = CardModel.objects.get(id__exact=cardid)
     track_list = TrackModel.objects.filter(card=cardid)
-    context = {'track_list':track_list,'card':card,'cardnumber':cardid}
+    context = {'track_list':track_list,'card':card}
     return  render_to_response(template_name, context,context_instance=RequestContext(request))
 def playlist(request,cardid,template_name='playlist.xml'):
     card = CardModel.objects.filter(id=cardid)
@@ -52,7 +52,7 @@ def choose(request, cardid, template_name='choose.html'):
 
         tracks.filter(remove=True).delete()
           
-        if objs.get('phone_call') == 'Phone Call':
+        if objs.get('phone_call') == 'Send a Phone Call':
           #post to the phone 
           card = CardModel.objects.get(id__exact=cardid)
           jstr = '{"to":"'+card.to_name+'","from":"'+card.from_name + '","phone":"'+card.to_phone+'","message":"'+card.intro_note+'","songs":['+songstext[:-1]+']}'
