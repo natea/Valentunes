@@ -50,7 +50,7 @@ def choose(request, cardid, template_name='choose.html'):
           args = {}
           args['data'] = jstr;
           args_enc = urllib.urlencode(args)
-          #res = urllib.urlopen('http://seevl.net/tmp/valentunes/cgi.py/call', args_enc).read()
+          res = urllib.urlopen('http://seevl.net/tmp/valentunes/cgi.py/call', args_enc).read()
           #done!
 
           return render_to_response("sent.html", { 
