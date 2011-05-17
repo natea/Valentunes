@@ -47,6 +47,7 @@ class CardResource(ModelResource):
             d['reason'] = track.reason
             d['audio_url'] = track.audio_url
             d['icon_url'] = track.album_coverart_100x100
+            d['artist_name'] = track.artist_name
             #import pdb; pdb.set_trace()
             track_prep.append(d)
             
