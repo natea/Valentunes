@@ -6,12 +6,13 @@ pyechonest
 python-dateutil
 mimeparse
 httplib2
+South
 
 #########
 # TWILIO
 ########
 -e git+git://github.com/webpy/webpy.git#egg=webpy
--e git+git://github.com/terraces/valentunes-twilio.git#egg=vtwilio
+#-e git+git://github.com/terraces/valentunes-twilio.git#egg=vtwilio
 
 ##################
 # UNUSED PACKAGES
