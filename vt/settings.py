@@ -74,18 +74,18 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-#    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+#    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'vt.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    # TODO: convert this to use os.join so that it will work on Windows, not just Unix
     ROOT_PATH + '/templates',
+    ROOT_PATH + '/templates/registraton',
 )
 
 INSTALLED_APPS = (
@@ -98,6 +98,22 @@ INSTALLED_APPS = (
 #    'piston',
     'valentunes',
     'tastypie',
+    'south',
+#    'debug_toolbar',
+    'registration',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+MUSIXMATCH_KEY = 'b6b0c3fb765dd2368d6f309f23448982'
+
+AUTH_PROFILE_MODULE = 'valentunes.UserProfile'
+
+INTERNAL_IPS = ('127.0.0.1',)
+
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
