@@ -32,7 +32,7 @@ class HTTPTestCase(TestServerTestCase):
         connection.request('POST', '/api/card/', body=post_data, headers={'Accept': 'application/json', 'Content-type': 'application/json'})
         response = connection.getresponse()
         self.assertEqual(response.status, 201)
-        self.assertEqual(dict(response.getheaders())['location'], 'http://localhost:8000/api/card/1/')
+        self.assertEqual(dict(response.getheaders())['location'], 'http://localhost:8001/api/card/1/')
 
         # make sure posted object exists
         connection.request('GET', '/api/card/1/', headers={'Accept': 'application/json'})
