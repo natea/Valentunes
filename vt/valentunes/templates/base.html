@@ -16,6 +16,17 @@
 <body>
     <div id="header">
       <a href="/"><img src="/static/imgs/logo.png" alt="logo" /></a>
+      {% load i18n %}
+      <br />
+      {% if user.is_authenticated %}
+      {% trans "Logged in" %}: {{ user.username }}
+      (<a href="{% url auth_logout %}">{% trans "Log out" %}</a> |
+      <a href="{% url auth_password_change %}">{% trans "Change password" %}</a>)
+      {% else %}
+      <a href="{% url auth_login %}">{% trans "Log in" %}</a>
+      {% endif %}
+      <hr />
+      
       {% block header %}
       <p>create a customized playlist of music your valentine will love...</p>
       {% endblock %}
