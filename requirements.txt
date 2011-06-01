@@ -7,6 +7,9 @@ python-dateutil
 mimeparse
 httplib2
 South
+django-debug-toolbar
+#django-registration
+-e hg+http://bitbucket.org/ubernostrum/django-registration/#egg=django-registration
 
 #########
 # TWILIO
