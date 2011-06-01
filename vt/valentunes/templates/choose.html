@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="POST" action=".">
+<form method="POST" action=".">{% csrf_token %}
 <ul>
     {% for track in track_list %}
      <li class="{% cycle 'even' 'odd' %}">
