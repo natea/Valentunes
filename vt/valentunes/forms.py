@@ -1,10 +1,11 @@
 from django import forms
-from models import CardModel,TrackModel
+from models import Card, Track
 
-class CardModelForm(forms.ModelForm):
+class CardForm(forms.ModelForm):
     class Meta:
-        model = CardModel
+        model = Card
+        exclude = ('user',)
 
 from django.forms.models import modelformset_factory
 
-TrackModelFormSet = modelformset_factory(TrackModel)
+TrackFormSet = modelformset_factory(Track)
