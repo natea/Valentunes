@@ -3,13 +3,13 @@ from tastypie.authorization import Authorization
 from tastypie.serializers import Serializer
 from tastypie import fields
 from tastypie.utils import is_valid_jsonp_callback_value, dict_strip_unicode_keys, trailing_slash
-from valentunes.models import CardModel, TrackModel
+from valentunes.models import Card, Track
 
 from time import sleep
 
 class CardResource(ModelResource):
     class Meta:
-        queryset = CardModel.objects.all()
+        queryset = Card.objects.all()
         resource_name = 'card'
         authorization = Authorization()
         serializer = Serializer()
@@ -31,17 +31,18 @@ class CardResource(ModelResource):
         track_list = None
 
         updated_bundle.obj.get_tracks()
-        updated_bundle.obj.get_track_urls()
+#        updated_bundle.obj.get_track_urls()
     
-        while not track_list:
-            track_list = TrackModel.objects.filter(card=cardid)
+        while not tracks:
+            tracks = Track.objects.filter(card=cardid)
             print "Waiting"
             sleep(1)
 
-        track_prep = []
+        track_list = []
                     
-        for track in track_list:
+        for track in tracks:
             d = {} 
+            d['track_id'] = track.id
             d['track_mbid'] = track.track_mbid
             d['track_name'] = track.track_name
             d['reason'] = track.reason
@@ -49,13 +50,13 @@ class CardResource(ModelResource):
             d['icon_url'] = track.album_coverart_100x100
             d['artist_name'] = track.artist_name
             #import pdb; pdb.set_trace()
-            track_prep.append(d)
+            track_list.append(d)
             
-        return self.create_response(request, {'id': updated_bundle.obj.id, "track_list": track_prep })
+        return self.create_response(request, {'id': updated_bundle.obj.id, "track_list": track_list })
         
 class TrackResource(ModelResource):
     class Meta:
-        queryset = TrackModel.objects.all()
+        queryset = Track.objects.all()
         resource_name = 'track'
         authorization = Authorization()
         card = fields.ForeignKey(CardResource, 'card')
