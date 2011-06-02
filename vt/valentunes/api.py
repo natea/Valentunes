@@ -28,7 +28,7 @@ class CardResource(ModelResource):
         self.is_valid(bundle, request)
         updated_bundle = self.obj_create(bundle, request=request)
         cardid = updated_bundle.obj.id
-        track_list = None
+        tracks = None
 
         updated_bundle.obj.get_tracks()
 #        updated_bundle.obj.get_track_urls()
@@ -45,7 +45,7 @@ class CardResource(ModelResource):
             d['track_id'] = track.id
             d['track_mbid'] = track.track_mbid
             d['track_name'] = track.track_name
-            d['reason'] = track.reason
+            d['search_term'] = track.search_term
             d['audio_url'] = track.audio_url
             d['icon_url'] = track.album_coverart_100x100
             d['artist_name'] = track.artist_name

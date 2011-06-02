@@ -30,7 +30,7 @@ class Card(models.Model):
         pass
 
     def __unicode__(self):
-        return u"%s"%("Card"+str(self.id)+" from " + user.get_profile().name + " to " + self.recipient_name)
+        return u"%s"%("Card"+str(self.id)+" from "  + " to " + self.recipient_name)
         
     @models.permalink
     def get_absolute_url(self):
@@ -48,12 +48,19 @@ class Card(models.Model):
             return
         #make the url call
         j=json.load(f)
-        import pdb; pdb.set_trace()
+#        print j['message']['body']['track_list']
+#        import pdb; pdb.set_trace()
+
         #TODO check that j has a 200 and is good
         #iterate over these tracks and add them to an array of tracks we've found, adding in the search term
         for track in j['message']['body']['track_list']:
             track = track['track']
-            t = Track(card=self,track_name=track['track_name'],artist_name=track['artist_name'],track_mbid=track['track_mbid'],artist_mbid=track['artist_mbid'],reason=topic,album_coverart_100x100=track['album_coverart_100x100'])
+            print track
+            print self
+            t = Track(track_name=track['track_name'],artist_name=track['artist_name'],track_mbid=track['track_mbid'],artist_mbid=track['artist_mbid'],search_term=topic,album_coverart_100x100=track['album_coverart_100x100'])
+            print t
+            t.save()
+            t.card.add(self)
             t.save()
         
     def get_tracks(self):

@@ -56,7 +56,7 @@ And then pass a POST using the following as the content::
         "intro_note": "", 
         "to_phone": "", 
         "from_email": "", 
-        "to_name": "Nate", 
+        "recipient_name": "Nate", 
         "from_phone": ""
     }
     
@@ -80,7 +80,7 @@ To add a new card via the API, type this command in the terminal::
         "_state": "<django.db.models.base.ModelState object at 0x1019b2910>", 
         "to_phone": "", 
         "from_email": "nate@valentun.es", 
-        "to_name": "", 
+        "recipient_name": "", 
         "from_phone": "", 
         "id": 3
     }
@@ -97,7 +97,7 @@ Now fetch that record you just created::
         "_state": "<django.db.models.base.ModelState object at 0x1019b2c90>", 
         "to_phone": "", 
         "from_email": "nate@valentun.es", 
-        "to_name": "", 
+        "recipient_name": "", 
         "from_phone": "", 
         "id": 3
 

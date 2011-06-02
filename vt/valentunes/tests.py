@@ -28,7 +28,7 @@ class HTTPTestCase(TestServerTestCase):
     def test_post_object(self):
         connection = self.get_connection()
         import pdb; pdb.set_trace()
-        post_data = '{"from_name": "Nate", "to_name": "Anna", "interests": "Coding, Playing"}'
+        post_data = '{"from_name": "Nate", "recipient_name": "Anna", "interests": "Coding, Playing"}'
         connection.request('POST', '/api/card/', body=post_data, headers={'Accept': 'application/json', 'Content-type': 'application/json'})
         response = connection.getresponse()
         self.assertEqual(response.status, 201)
@@ -45,7 +45,7 @@ class HTTPTestCase(TestServerTestCase):
         obj = json.loads(data)
 
         self.assertEqual(obj['from_name'], 'Nate')
-        self.assertEqual(obj['to_name'], 'Anna')
+        self.assertEqual(obj['recipient_name'], 'Anna')
         self.assertEqual(obj['interests'], 'Coding, Playing')
     
 class SimpleTest(TestCase):

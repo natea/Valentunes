@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from vt.valentunes.forms import CardForm, TrackFormSet
 import urllib
 
+
 @login_required
 def index(request, template_name='index.html'):
     if request.method == 'POST':
@@ -67,7 +68,7 @@ def choose(request, cardid, template_name='choose.html'):
             #done!
 
             return render_to_response("sent.html", { 
-                  "to_name": card.recipient_name,
+                  "recipient_name": card.recipient_name,
                   "to_phone": card.recipient_phone,
                   },
                                     RequestContext(request))

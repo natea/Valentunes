@@ -4,9 +4,9 @@
 <form method="POST" action="/">{% csrf_token %}
   {{ form.non_field_errors }}
 <div>
-  {{ form.to_name.errors }}
+  {{ form.recipient_name.errors }}
 <label for="name">Valentine's First or Nick Name</label><br>
-<input style="content" type="text" name="{{ form.to_name.html_name }}" id="to_name" size="50" value="Samantha" tabindex="1" />
+<input style="content" type="text" name="{{ form.recipient_name.html_name }}" id="recipient_name" size="50" value="Samantha" tabindex="1" />
 </div>
 <div>
   {{ form.interests.errors }}
