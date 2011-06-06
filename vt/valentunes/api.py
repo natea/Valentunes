@@ -1,5 +1,5 @@
 from tastypie.resources import ModelResource
-from tastypie.authorization import Authorization
+from tastypie.authorization import Authorization, DjangoAuthorization
 from tastypie.authentication import BasicAuthentication
 from tastypie.serializers import Serializer
 from tastypie import fields
