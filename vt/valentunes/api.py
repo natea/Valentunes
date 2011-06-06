@@ -21,7 +21,7 @@ class TrackResource(ModelResource):
         # card = fields.ForeignKey(CardResource, 'card')
         
         
-class PerUserAuthentication(BasicAuthentication):
+class PerUserAuthorization(Authorization):
     def apply_limits(self, request, object_list):
         if request and hasattr(request, 'GET') and request.GET.get('user'):
             if request.GET['user'].is_authenticated():
@@ -37,8 +37,8 @@ class CardResource(ModelResource):
     class Meta:
         queryset = Card.objects.all()
         resource_name = 'card'
-        authentication = PerUserAuthentication()
-        authorization = Authorization()
+        authentication = BasicAuthentication()
+        authorization = PerUserAuthorization()
         serializer = Serializer()
             
     def post_list(self, request, **kwargs):
