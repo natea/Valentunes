@@ -25,6 +25,7 @@ class Card(models.Model):
     intro_note = models.TextField(max_length=1000, blank=True)
     interests = models.TextField(max_length=1000, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
+
     
     class Admin:
         pass
@@ -55,10 +56,7 @@ class Card(models.Model):
         #iterate over these tracks and add them to an array of tracks we've found, adding in the search term
         for track in j['message']['body']['track_list']:
             track = track['track']
-            print track
-            print self
             t = Track(track_name=track['track_name'],artist_name=track['artist_name'],track_mbid=track['track_mbid'],artist_mbid=track['artist_mbid'],search_term=topic,album_coverart_100x100=track['album_coverart_100x100'])
-            print t
             t.save()
             t.card.add(self)
             t.save()
@@ -86,7 +84,7 @@ class Card(models.Model):
 class Track(models.Model):
     """ Track is a song that we've found on MusixMatch based on the recipients' interests."""
     
-    card = models.ManyToManyField(Card, related_name="track_card_set")
+    card = models.ManyToManyField(Card)
 #    card = models.ForeignKey(CardModel)
     track_mbid = models.CharField(max_length=50)
     track_name = models.CharField(max_length=200)
