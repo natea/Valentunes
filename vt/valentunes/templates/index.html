@@ -16,8 +16,8 @@
 <div>
 </div>
 <div>
-  <label for="{{ form.to_phone.html_name }}">Valentine's Cellphone</label><br>
-<input type="tel" size="50" name="{{ form.to_phone.html_name }}" value="6465551212"/>
+  <label for="{{ form.recipient_phone.html_name }}">Valentine's Cellphone</label><br>
+<input type="tel" size="50" name="{{ form.recipient_phone.html_name }}" value="6465551212"/>
 </div>
 
 <div style = "small">
@@ -26,7 +26,7 @@
 </div>
 <div>
 <label for="{{ form.from_name.html_name }}" class="small">Your Name</label>
-<input type="text" name="{{ form.from_name.html_name }}" value="Romeo"/>
+<input type="text" name="{{ form.from_name.html_name }}" value="{{ request.user }}"/>
 </div>
 <div>
 <label for="{{ form.from_phone.html_name }}" class="small">Your Cell</label>

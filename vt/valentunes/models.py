@@ -31,6 +31,7 @@ class Card(models.Model):
 
     def __unicode__(self):
         return u"%s"%("Card"+str(self.id)+" from "  + " to " + self.recipient_name)
+#        return u"%s"%("Card"+str(self.id)+" from " + self.user.get_profile().name + " to " + self.recipient_name)
         
     @models.permalink
     def get_absolute_url(self):
@@ -48,21 +49,21 @@ class Card(models.Model):
             return
         #make the url call
         j=json.load(f)
-#        print j['message']['body']['track_list']
-#        import pdb; pdb.set_trace()
-
         #TODO check that j has a 200 and is good
         #iterate over these tracks and add them to an array of tracks we've found, adding in the search term
         for track in j['message']['body']['track_list']:
             track = track['track']
-            print track
-            print self
-            t = Track(track_name=track['track_name'],artist_name=track['artist_name'],track_mbid=track['track_mbid'],artist_mbid=track['artist_mbid'],search_term=topic,album_coverart_100x100=track['album_coverart_100x100'])
-            print t
+            t = Track(track_name=track['track_name'],
+                      artist_name=track['artist_name'],
+                      track_mbid=track['track_mbid'],
+                      artist_mbid=track['artist_mbid'],
+                      search_term=topic,
+                      album_coverart_100x100=track['album_coverart_100x100'])
+
             t.save()
             t.card.add(self)
             t.save()
-        
+            
     def get_tracks(self):
         """Get tracks that have the person's name in the lyrics or have their interests in the lyrics"""
         

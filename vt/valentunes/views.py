@@ -2,6 +2,7 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django import forms
 from models import Track, Card
 from django.http import HttpResponseRedirect, HttpResponse
