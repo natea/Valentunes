@@ -1,11 +1,11 @@
 from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
+from tastypie.authentication import Authentication
 from tastypie.serializers import Serializer
 from tastypie import fields
 from tastypie.utils import is_valid_jsonp_callback_value, dict_strip_unicode_keys, trailing_slash
 from valentunes.models import Card, Track
-
-
+import simplejson as json
 
 from time import sleep
 
@@ -24,6 +24,7 @@ class CardResource(ModelResource):
     class Meta:
         queryset = Card.objects.all()
         resource_name = 'card'
+        authentication = BasicAuthentication()
         authorization = Authorization()
         serializer = Serializer()
 
@@ -48,3 +49,20 @@ class CardResource(ModelResource):
 
         # return self.create_response(request, {'id': updated_bundle.obj.id, "track_list": track_list })
         return self.create_response(request, self.full_dehydrate(bundle.obj))
+        
+    def is_authenticated(self, request):
+        """
+        Handles checking if the user is authenticated and dealing with
+        unauthenticated users.
+
+        Mostly a hook, this uses class assigned to ``authentication`` from
+        ``Resource._meta``.
+        """
+        # Authenticate the request as needed.
+        auth_result = self._meta.authentication.is_authenticated(request)
+
+        if isinstance(auth_result, HttpResponse):
+            raise ImmediateHttpResponse(response=auth_result)
+
+        if not auth_result is True:
+            raise ImmediateHttpResponse(response=json.dump({'code': '115', 'message': 'Bad username or password.'}))
