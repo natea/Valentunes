@@ -1,6 +1,6 @@
 from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
-from tastypie.authentication import Authentication
+from tastypie.authentication import BasicAuthentication
 from tastypie.serializers import Serializer
 from tastypie import fields
 from tastypie.utils import is_valid_jsonp_callback_value, dict_strip_unicode_keys, trailing_slash
