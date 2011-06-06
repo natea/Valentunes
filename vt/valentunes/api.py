@@ -21,18 +21,18 @@ class TrackResource(ModelResource):
         # card = fields.ForeignKey(CardResource, 'card')
         
         
+class PerUserAuthentication(BasicAuthentication):
+    def apply_limits(self, request, object_list):
+        if request and hasattr(request, 'GET') and request.GET.get('user'):
+            if request.GET['user'].is_authenticated():
+                object_list = object_list.filter(user=request.GET['user'])
+            else:
+                object_list = object_list.none()
+
+        return object_list
+
 class CardResource(ModelResource):
     track_set = fields.ToManyField(TrackResource, 'track_set', full=True)
-
-    class PerUserAuthentication(BasicAuthentication):
-        def apply_limits(self, request, object_list):
-            if request and hasattr(request, 'GET') and request.GET.get('user'):
-                if request.GET['user'].is_authenticated():
-                    object_list = object_list.filter(user=request.GET['user'])
-                else:
-                    object_list = object_list.none()
-
-            return object_list
 
     class Meta:
         queryset = Card.objects.all()
