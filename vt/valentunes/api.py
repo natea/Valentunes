@@ -4,6 +4,9 @@ from tastypie.authentication import Authentication
 from tastypie.serializers import Serializer
 from tastypie import fields
 from tastypie.utils import is_valid_jsonp_callback_value, dict_strip_unicode_keys, trailing_slash
+from tastypie.exceptions import NotFound, BadRequest, InvalidFilterError, HydrationError, InvalidSortError, ImmediateHttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
+
 from valentunes.models import Card, Track
 import simplejson as json
 
