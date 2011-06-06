@@ -20,25 +20,17 @@ class TrackResource(ModelResource):
         authorization = Authorization()
         # card = fields.ForeignKey(CardResource, 'card')
         
-        
-class PerUserAuthorization(Authorization):
-    def apply_limits(self, request, object_list):
-        if request and hasattr(request, 'GET') and request.GET.get('user'):
-            if request.GET['user'].is_authenticated():
-                object_list = object_list.filter(user=request.GET['user'])
-            else:
-                object_list = object_list.none()
-
-        return object_list
-
 class CardResource(ModelResource):
     track_set = fields.ToManyField(TrackResource, 'track_set', full=True)
 
+    def get_object_list(self, request, *args, **kwargs):
+            return Card.objects.filter(owner=request.user)
+            
     class Meta:
         queryset = Card.objects.all()
         resource_name = 'card'
         authentication = BasicAuthentication()
-        authorization = PerUserAuthorization()
+        authorization = DjangoAuthorization()
         serializer = Serializer()
             
     def post_list(self, request, **kwargs):
@@ -55,7 +47,7 @@ class CardResource(ModelResource):
         bundle = self.build_bundle(data=dict_strip_unicode_keys(deserialized))
         self.is_valid(bundle, request)
 
-        updated_bundle = self.obj_create(bundle, request=request)
+        updated_bundle = self.obj_create(bundle, request=request, owner=request.user)
 
         updated_bundle.obj.get_tracks()
 #        updated_bundle.obj.get_track_urls()
