@@ -65,18 +65,22 @@ class CardResource(ModelResource):
 
                 return response
             except (BadRequest, ApiFieldError), e:
-                return HttpBadRequest(e.args[0])
+                message = e.args[0]
+                return json_response({ 'code' : '14', 
+                                       'message' : message })
             except ValidationError, e:
-                return HttpBadRequest(', '.join(e.messages))
+                message = ', '.join(e.messages)
+                return json_response({ 'code' : '12',
+                                       'message' : message })
             except Exception, e:
                 if hasattr(e, 'response'):
                     # 401 is the HTTP status code for Unauthorized, so we explicitly inform the user of this error.
                     if e.response.status_code == 401:
-                        return json_response({ 'code' : '1',
-                                               'message' : 'Bad username or password.'})
+                        return json_response({ 'code' : '3',
+                                               'message' : 'Bad username or password, please try again.'})
                     else:
                         message = ', '.join(e.messages)
-                        return json_response({ 'code': '2',
+                        return json_response({ 'code': '14',
                                                'message' : message })
                                                
                 # A real, non-expected exception.
@@ -113,7 +117,6 @@ class CardResource(ModelResource):
 
         If a new resource is created, return ``HttpCreated`` (201 Created).
         """
-        
         deserialized = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
         bundle = self.build_bundle(data=dict_strip_unicode_keys(deserialized))
         self.is_valid(bundle, request)
