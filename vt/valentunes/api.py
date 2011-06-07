@@ -75,8 +75,9 @@ class CardResource(ModelResource):
                         return json_response({ 'code' : '1',
                                                'message' : 'Bad username or password.'})
                     else:
+                        message = ', '.join(e.messages)
                         return json_response({ 'code': '2',
-                                               'message' : %s } % (', '.join(e.messages)))
+                                               'message' : message })
                                                
                 # A real, non-expected exception.
                 # Handle the case where the full traceback is more helpful
