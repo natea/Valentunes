@@ -36,7 +36,10 @@ class CardResource(ModelResource):
 
     def get_object_list(self, request, *args, **kwargs):
         return Card.objects.filter(user=request.user)
-                            
+                  
+    # overriding wrap_view to ensure that errors are returned as JSON rather than HTML
+    # and that we have sensible error messages returned to the user for situations
+    # where the user has entered an incorrect username or password.
     def wrap_view(self, view):
         """
         Wraps methods so they can be called in a more functional way as well
@@ -121,20 +124,3 @@ class CardResource(ModelResource):
 
         # return self.create_response(request, {'id': updated_bundle.obj.id, "track_list": track_list })
         return self.create_response(request, self.full_dehydrate(bundle.obj))
-        
-    def is_authenticated(self, request):
-        """
-        Handles checking if the user is authenticated and dealing with
-        unauthenticated users.
-
-        Mostly a hook, this uses class assigned to ``authentication`` from
-        ``Resource._meta``.
-        """
-        # Authenticate the request as needed.
-        auth_result = self._meta.authentication.is_authenticated(request)
-
-        if isinstance(auth_result, HttpResponse):
-            raise ImmediateHttpResponse(response=auth_result)
-
-        if not auth_result is True:
-            raise ImmediateHttpResponse(response=json_response({'code': '115', 'message': 'Bad username or password.'}))
