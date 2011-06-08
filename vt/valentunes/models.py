@@ -31,7 +31,7 @@ class Card(models.Model):
         pass
 
     def __unicode__(self):
-        return u"%s"%("Card"+str(self.id)+" from "  + " to " + self.recipient_name)
+        return u"%s"%("Card"+str(self.id)+" from " + self.user.first_name + " to " + self.recipient_name)
 #        return u"%s"%("Card"+str(self.id)+" from " + self.user.get_profile().name + " to " + self.recipient_name)
         
     @models.permalink
