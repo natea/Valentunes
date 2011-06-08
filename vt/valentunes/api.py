@@ -7,6 +7,7 @@ from tastypie.utils import is_valid_jsonp_callback_value, dict_strip_unicode_key
 from tastypie.exceptions import NotFound, BadRequest, InvalidFilterError, HydrationError, InvalidSortError, ImmediateHttpResponse, ApiFieldError
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse, HttpResponseNotFound
+from django.conf import settings
 
 from valentunes.models import Card, Track
 import simplejson as json
@@ -51,7 +52,6 @@ class CardResource(ModelResource):
         """
         @csrf_exempt
         def wrapper(request, *args, **kwargs):
-            #import pdb; pdb.set_trace()
             try:
                 callback = getattr(self, view)
                 response = callback(request, *args, **kwargs)
